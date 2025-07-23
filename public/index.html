@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIMA Inc. - DIAGONAL IMPACT</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <div class="site-logo">AIMA, Inc.</div>
+
+  <div class="chat-launcher">
+    <div class="speech-bubble">AIエージェントの相馬アイです！<br>ご相談はこちらからどうぞ♪</div>
+    <img src="https://raw.githubusercontent.com/ikioideok/aima/main/chara.png" alt="チャット相談アイコン">
+  </div>
+  
+  <div class="vrm-chat-container">
+      <div class="vrm-chat-window">
+          <button class="close-chat-button">&times;</button>
+          <div class="vrm-area">
+              <canvas id="vrmCanvas"></canvas>
+              <button id="modeBtn">商談</button>
+          </div>
+          <div class="chat-ui-area">
+              <div class="chat-log">
+              </div>
+              <form id="chat-form">
+                  <input type="text" id="chat-input" placeholder="メッセージを入力..." autocomplete="off">
+                  <button type="submit">送信</button>
+              </form>
+          </div>
+      </div>
+  </div>
+
+  <nav class="side-nav" id="side-nav">
+    <ul>
+      <li data-section="vision"><a href="#vision">Vision</a></li>
+      <li data-section="service"><a href="#service">Service</a></li>
+      <li data-section="company"><a href="#company">Company</a></li>
+      <li data-section="contact"><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="flash-pane orange-pane"></div>
+    <div class="flash-pane mint-pane"></div>
+    <h1 class="hero-title">限界を、<br>超えろ。</h1>
+  </section>
+
+  <main>
+    <section id="vision" class="content-section">
+      <div class="content-wrapper">
+        <h2>Our Vision</h2>
+        <div class="description-box">
+          <p>
+            <span class="highlight">// AIMA Inc.</span><br />
+            STATUS: UNLEASHED<br />
+            OBJECTIVE: BREAK THE RULES<br />
+            METHOD: ARTIFICIAL INTELLIGENCE
+          </p>
+        </div>
+        <div class="main-text">
+          <p>
+株式会社AIMAは、AI技術を基盤に、企業の課題に寄り添いながら本質的な変革を実現するパートナーです。私たちは既存の枠組みにとらわれず、柔軟な発想とテクノロジーの力で、新たな可能性を切り拓いていきます。<br><br>
+目指すのは、目の前の課題を解決するだけでなく、未来のビジネスのかたちを共につくり上げていくこと。クライアント一人ひとりの想いに寄り添い、共に歩むことで、持続的な成長と革新を支えてまいります。          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="service" class="content-section">
+      <div class="content-wrapper">
+        <div class="heading-wrapper-right">
+            <h2>Our Service</h2>
+        </div>
+        <div class="description-box align-right">
+          <p>
+            <span class="highlight">// SERVICE 01</span><br />
+            AI MARKETING<br />
+            DESCRIPTION: Unlock insights and craft strategies through human-centered AI
+          </p>
+        </div>
+        <div class="description-box align-right">
+            <p>
+              <span class="highlight">// SERVICE 02</span><br />
+              AI-DRIVEN MEDIA<br />
+              DESCRIPTION: Build and grow original media powered by intelligent automation
+            </p>
+          </div>
+        <div class="main-text" style="text-align: right;">
+          <p>
+            AI技術を核に、課題の可視化から戦略設計・施策実行までを一気通貫で支援。
+人とテクノロジーの間に立ち、単なる仕組み導入ではなく、ブランドの成長と変革を本気で伴走します。<br><br>
+もちろん、AI導入に向けたコンサルティングからプロジェクトの設計も丁寧にサポート。
+実装や運用も含め、ワンストップでお任せいただけます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="company" class="content-section">
+      <div class="content-wrapper">
+        <h2>Our Company</h2>
+        <div class="main-text">
+          <p>
+            <strong>会社名:</strong> 株式会社AIMA (AIMA Inc.)<br />
+            <strong>所在地:</strong> 大阪府大阪市北区梅田一丁目2番2号　大阪駅前第2ビル2階5-6号室<br />
+            <strong>設立:</strong> 2018年<br />
+            <strong>事業内容:</strong> AIマーケティング、AI関連メディア運営
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <section id="contact" class="content-section">
+      <div class="content-wrapper">
+        <div class="form-container">
+            <h2 style="text-align: center; display:block; border:none; margin-bottom: 30px;">Contact Us</h2>
+            <form action="#" method="POST">
+              <label for="name">お名前</label>
+              <input type="text" id="name" name="name" required>
+    
+              <label for="email">メールアドレス</label>
+              <input type="email" id="email" name="email" required>
+    
+              <label for="message">お問い合わせ内容</label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+    
+              <button type="submit">送信する</button>
+            </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 AIMA Inc. All Rights Reserved.</p>
+  </footer>
+
+<script type="importmap">
+  {
+      "imports": {
+          "three": "https://esm.sh/three@0.160.0",
+          "three/addons/": "https://esm.sh/three@0.160.0/examples/jsm/",
+          "@pixiv/three-vrm": "https://esm.sh/@pixiv/three-vrm@2.0.10?external=three"
+      }
+  }
+</script>
+
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      userId = crypto.randomUUID();
+      localStorage.setItem('userId', userId);
+    }
+    
+    setTimeout(() => {
+      const visionSection = document.getElementById('vision');
+      if (visionSection) {
+        visionSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 2600);
+
+    const siteLogo = document.querySelector('.site-logo');
+    const sideNav = document.getElementById('side-nav');
+    const heroSection = document.getElementById('hero');
+    const sections = document.querySelectorAll('.content-section');
+    const navLinks = document.querySelectorAll('.side-nav li');
+    const chatLauncher = document.querySelector('.chat-launcher');
+    const vrmChatContainer = document.querySelector('.vrm-chat-container');
+    const closeChatButton = document.querySelector('.close-chat-button');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatLog = document.querySelector('.chat-log');
+    const modeBtn = document.getElementById('modeBtn');
+
+    let vrmScriptLoaded = false; 
+    let isFirstOpening = true;
+    let isConsultationMode = false;
+    let conversationHistory = [];
+
+    window.addEventListener('scroll', () => {
+      const showPosition = heroSection.offsetHeight - 100;
+      const isVisible = window.scrollY > showPosition;
+      siteLogo.classList.toggle('visible', isVisible);
+      sideNav.classList.toggle('visible', isVisible);
+      chatLauncher.classList.toggle('visible', isVisible);
+    });
+    
+    chatLauncher.addEventListener('click', () => {
+        vrmChatContainer.classList.add('visible');
+        chatLauncher.style.display = 'none';
+        
+        if (!vrmScriptLoaded) {
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = './vrm-viewer.js';
+          document.body.appendChild(script);
+          vrmScriptLoaded = true;
+        }
+
+        if (isFirstOpening) {
+            const welcomeMessage = 'はじめまして！株式会社AIMAの相馬アイと申します。ご用件をお聞かせください！';
+            addMessage(welcomeMessage, 'character');
+            isFirstOpening = false;
+        }
+    });
+
+    closeChatButton.addEventListener('click', () => {
+        vrmChatContainer.classList.remove('visible');
+        chatLauncher.style.display = 'flex';
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.dataset.section === entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '0px', threshold: 0.4 });
+
+    sections.forEach(section => observer.observe(section));
+    
+    modeBtn.addEventListener('click', () => {
+        isConsultationMode = !isConsultationMode;
+        conversationHistory = [];
+        renderMessages();
+        if (isConsultationMode) {
+            modeBtn.textContent = '記録中';
+            modeBtn.classList.add('active');
+            addMessage('商談モードを開始しました。ここからの会話はすべて記録されます。', 'character');
+        } else {
+            modeBtn.textContent = '商談';
+            modeBtn.classList.remove('active');
+            addMessage('通常モードに戻りました。', 'character');
+        }
+    });
+    
+    function renderMessages() {
+        chatLog.innerHTML = '';
+        conversationHistory.forEach(msg => {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', `${msg.sender}-message`);
+            messageDiv.textContent = msg.text;
+            chatLog.insertAdjacentElement('afterbegin', messageDiv);
+        });
+    }
+
+    function addMessage(text, sender) {
+        if (!chatLog) return null;
+        if (!isConsultationMode && sender === 'user') {
+            conversationHistory = [];
+        }
+        conversationHistory.push({ text: text, sender: sender });
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message', `${sender}-message`);
+        messageDiv.textContent = text;
+        chatLog.insertAdjacentElement('afterbegin', messageDiv);
+        return messageDiv;
+    }
+
+    function updateLastBotMessage(newText) {
+        const lastMessage = conversationHistory.pop();
+        if (lastMessage && lastMessage.sender === 'character') {
+            lastMessage.text = newText;
+            conversationHistory.push(lastMessage);
+            const lastMessageElement = chatLog.querySelector('.character-message');
+            if(lastMessageElement) {
+                lastMessageElement.textContent = newText;
+            }
+        }
+    }
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userMessage = chatInput.value.trim();
+      if (!userMessage) return;
+
+      addMessage(userMessage, 'user');
+      chatInput.value = '';
+      const submitButton = chatForm.querySelector('button');
+      submitButton.disabled = true;
+
+      addMessage('...', 'character');
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+              userId: userId,
+              message: userMessage,
+              isConsultation: isConsultationMode,
+              history: isConsultationMode ? conversationHistory.slice(0, -2) : []
+          }),
+        });
+        if (!response.ok) throw new Error(`APIエラー: ${response.statusText}`);
+
+        const data = await response.json();
+        
+        updateLastBotMessage(data.reply);
+
+      } catch (error) {
+        console.error('チャットAPIとの通信に失敗しました:', error);
+        updateLastBotMessage('申し訳ありません、エラーが発生しました。');
+      } finally {
+        submitButton.disabled = false;
+        chatInput.focus();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
