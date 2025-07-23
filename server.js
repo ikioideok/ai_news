@@ -8,24 +8,27 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// --- 基本設定 ---
+const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // --- OpenAIの設定 ---
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // --- Googleスプレッドシートの設定 ---
 const SPREADSHEET_ID = '17Hi55yo6nA8TWYmDCB-ON7mAPh5zU3Bqv9QLo5Y2k3s';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const KEYFILEPATH = path.join(__dirname, 'credentials.json');
 const auth = new google.auth.GoogleAuth({ keyFile: KEYFILEPATH, scopes: ['https://www.googleapis.com/auth/spreadsheets']});
 const sheets = google.sheets({ version: 'v4', auth: auth });
 
-const app = express();
-const port = 3000;
-
+// --- ミドルウェア設定 ---
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+// 静的ファイル（HTML, CSS, JS, VRMモデルなど）を 'public' ディレクトリから配信
+app.use(express.static(path.join(__dirname, 'public')));
 
+// --- ヘルパー関数 ---
 async function saveChatToSheet(sheetName, userId, message, reply, fullPrompt, usage) {
   try {
     await sheets.spreadsheets.values.append({
@@ -48,6 +51,7 @@ async function saveChatToSheet(sheetName, userId, message, reply, fullPrompt, us
   }
 }
 
+// --- APIルート ---
 app.post('/api/chat', async (req, res) => {
   const { userId, message, isConsultation, history } = req.body;
   try {
@@ -78,6 +82,17 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`サーバーが http://localhost:${port} で起動しました`);
+/*
+ * express.staticの設定により、/model.vrmへのGETリクエストは
+ * public/model.vrmを自動的に返すため、以下の専用ルートは通常不要です。
+ * 特定の処理（例: アクセスログ）を追加したい場合などに有効化してください。
+ */
+// app.get('/model.vrm', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public/model.vrm'));
+// });
+
+// --- サーバー起動 ---
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`サーバーが http://localhost:${PORT} で起動しました`);
 });

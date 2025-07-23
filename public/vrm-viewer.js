@@ -38,7 +38,7 @@ const loader = new GLTFLoader();
 loader.register((parser) => new VRMLoaderPlugin(parser));
 
 let currentVrm = null;
-const modelUrl = 'https://raw.githubusercontent.com/ikioideok/aima/main/MyAvatar_20250718160503.vrm';
+const modelUrl = './model.vrm';
 
 loader.load(
     modelUrl,
