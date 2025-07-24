@@ -18,8 +18,8 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // --- Googleスプレッドシートの設定 ---
 const SPREADSHEET_ID = '17Hi55yo6nA8TWYmDCB-ON7mAPh5zU3Bqv9QLo5Y2k3s';
-const KEYFILEPATH = path.join(__dirname, 'credentials.json');
-const auth = new google.auth.GoogleAuth({ keyFile: KEYFILEPATH, scopes: ['https://www.googleapis.com/auth/spreadsheets']});
+const credentialsJson = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+const auth = new google.auth.GoogleAuth({ credentials: credentialsJson, scopes: ['https://www.googleapis.com/auth/spreadsheets']});
 const sheets = google.sheets({ version: 'v4', auth: auth });
 
 // --- ミドルウェア設定 ---
