@@ -33,7 +33,7 @@
           <button class="close-chat-button">&times;</button>
           <div class="vrm-area">
               <canvas id="vrmCanvas"></canvas>
-              <button id="modeBtn">商談</button>
+              <button id="modeBtn">相談</button>
           </div>
           <div class="chat-ui-area">
               <div class="chat-log">
@@ -323,7 +323,7 @@
         vrmScriptLoaded = true;
       }
       if (isFirstOpening) {
-          addMessage('はじめまして！株式会社AIMAの相馬アイです。ご用件をお聞かせください！', 'character');
+          addMessage('お世話になります。株式会社AIMAの相馬アイです。ご用件をお聞かせください。詳細なご相談は「相談」ボタンを押してください。', 'character');
           isFirstOpening = false;
       }
     });
@@ -341,9 +341,9 @@
         if (isConsultationMode) {
             modeBtn.textContent = '記録中';
             modeBtn.classList.add('active');
-            addMessage('商談モードを開始しました。ここからの会話はすべて記録されます。', 'character');
+            addMessage('相談モードを開始しました。ここからの会話はすべて記録されます。', 'character');
         } else {
-            modeBtn.textContent = '商談';
+            modeBtn.textContent = '相談';
             modeBtn.classList.remove('active');
             addMessage('通常モードに戻りました。', 'character');
         }
