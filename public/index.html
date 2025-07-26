@@ -129,7 +129,7 @@
       <div class="content-wrapper">
         <div class="form-container">
             <h2 style="text-align: center; display:block; border:none; margin-bottom: 30px;">Contact Us</h2>
-            <form action="#" method="POST">
+            <form action="https://formspree.io/f/manbovwk" method="POST">
               <label for="name">お名前</label>
               <input type="text" id="name" name="name" required>
     
@@ -161,6 +161,7 @@
 </script>
 
 <script type="module" src="./vrm-preview.js"></script>
+
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
     let userId = localStorage.getItem('userId');
@@ -236,7 +237,6 @@
     const chatLauncherInput = document.querySelector('.chat-launcher-input');
     const vrmPreviewArea = document.querySelector('.vrm-preview-area');
 
-    // ロゴ、サイドナビ、チャットUIの表示切り替え
     window.addEventListener('scroll', () => {
       const showPosition = heroSection.offsetHeight - 100;
       const isVisible = window.scrollY > showPosition;
@@ -246,7 +246,7 @@
       vrmPreviewArea.classList.toggle('visible', isVisible);
     });
     
-    // スクロールアニメーション用の監視ロジック
+    // --- シンプルなスクロールアニメーション ---
     const animationObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -269,7 +269,7 @@
       });
     });
 
-    // サイドナビ用の監視ロジック
+    // --- サイドナビ用の監視ロジック ---
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -287,9 +287,7 @@
       threshold: 0
     });
 
-    sections.forEach(section => {
-      navObserver.observe(section);
-    });
+    sections.forEach(section => navObserver.observe(section));
 
     // --- チャット関連のロジック ---
     const vrmChatContainer = document.querySelector('.vrm-chat-container');
@@ -298,33 +296,25 @@
     const chatInput = document.getElementById('chat-input');
     const chatLog = document.querySelector('.chat-log');
     const modeBtn = document.getElementById('modeBtn');
-    
     const starterForm = document.getElementById('starter-form');
     const starterInput = document.getElementById('starter-input');
-
     let vrmScriptLoaded = false; 
     let isFirstOpening = true;
     let isConsultationMode = false;
     let conversationHistory = [];
 
-    // スターターフォームの送信イベント
     starterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const starterMessage = starterInput.value.trim();
       if (!starterMessage) return;
-
       vrmChatContainer.classList.add('visible');
-      
       chatLauncherInput.style.display = 'none';
       vrmPreviewArea.style.display = 'none';
-
       chatInput.value = starterMessage;
       starterInput.value = '';
-      
       setTimeout(() => {
         chatForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       }, 0);
-
       if (!vrmScriptLoaded) {
         const script = document.createElement('script');
         script.type = 'module';
@@ -332,14 +322,12 @@
         document.body.appendChild(script);
         vrmScriptLoaded = true;
       }
-      
       if (isFirstOpening) {
           addMessage('はじめまして！株式会社AIMAの相馬アイです。ご用件をお聞かせください！', 'character');
           isFirstOpening = false;
       }
     });
 
-    // 閉じるボタンのイベント
     closeChatButton.addEventListener('click', () => {
         vrmChatContainer.classList.remove('visible');
         chatLauncherInput.style.display = 'block';
@@ -400,14 +388,11 @@
       e.preventDefault();
       const userMessage = chatInput.value.trim();
       if (!userMessage) return;
-
       addMessage(userMessage, 'user');
       chatInput.value = '';
       const submitButton = chatForm.querySelector('button');
       submitButton.disabled = true;
-
       addMessage('...', 'character');
-
       try {
         const response = await fetch('/api/chat', {
           method: 'POST',
@@ -420,11 +405,8 @@
           }),
         });
         if (!response.ok) throw new Error(`APIエラー: ${response.statusText}`);
-
         const data = await response.json();
-        
         updateLastBotMessage(data.reply);
-
       } catch (error) {
         console.error('チャットAPIとの通信に失敗しました:', error);
         updateLastBotMessage('申し訳ありません、エラーが発生しました。');
