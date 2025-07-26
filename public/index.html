@@ -7,8 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet" />
-  
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
 
 </head>
@@ -16,9 +15,17 @@
 <body>
   <div class="site-logo">AIMA, Inc.</div>
 
-  <div class="chat-launcher">
-    <div class="speech-bubble">AIエージェントの相馬アイです！<br>ご相談はこちらからどうぞ♪</div>
-<img src="/chara.png" alt="チャット相談アイコン">
+  <div class="vrm-preview-area">
+    <div class="character-info">
+      <div class="character-speech-bubble">お問い合わせやご相談など、お気軽にどうぞ</div>
+    </div>
+    <canvas id="vrmPreviewCanvas"></canvas>
+  </div>
+  <div class="chat-launcher-input">
+    <form id="starter-form">
+      <input type="text" id="starter-input" placeholder="こんにちは、と話しかけてみてください…" autocomplete="off">
+      <button type="submit" aria-label="送信">▶</button>
+    </form>
   </div>
   
   <div class="vrm-chat-container">
@@ -153,6 +160,7 @@
   }
 </script>
 
+<script type="module" src="./vrm-preview.js"></script>
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
     let userId = localStorage.getItem('userId');
@@ -160,75 +168,183 @@
       userId = crypto.randomUUID();
       localStorage.setItem('userId', userId);
     }
-    
-    setTimeout(() => {
-      const visionSection = document.getElementById('vision');
-      if (visionSection) {
-        visionSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 2600);
 
+    // --- ヒーローアニメーション ---
+    const heroTitle = document.querySelector('.hero-title');
+    function cyberDecodeAnimation(element) {
+      const originalHTML = "限界を、<br>超えろ。";
+      const lines = originalHTML.split('<br>');
+      const allChars = "アBCデEFGヒIJKLMノOPQRスTUVWXヤZ0123456789";
+      const frameRate = 10;
+      const decodeSpeedPerFrame = 1; 
+      
+      element.innerHTML = '';
+      const lineElements = lines.map(() => {
+          const lineEl = document.createElement('div');
+          element.appendChild(lineEl);
+          return lineEl;
+      });
+      
+      element.style.opacity = '1';
+      let charIndex = 0;
+      const totalChars = lines.join('').length;
+
+      function updateText() {
+        charIndex += decodeSpeedPerFrame;
+        let currentTotalIndex = 0;
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          const lineElement = lineElements[i];
+          let newLineText = '';
+          for (let j = 0; j < line.length; j++) {
+            const charOriginalIndex = currentTotalIndex + j;
+            if (charOriginalIndex < charIndex) {
+              newLineText += line[j];
+            } else {
+              newLineText += allChars[Math.floor(Math.random() * allChars.length)];
+            }
+          }
+          lineElement.textContent = newLineText;
+          currentTotalIndex += line.length;
+        }
+        
+        if (charIndex >= totalChars) {
+          element.innerHTML = '限界を、<br>超えろ<span class="period-drop">。</span>';
+          setTimeout(() => {
+            const visionSection = document.getElementById('vision');
+            if (visionSection) {
+              visionSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 1200);
+          return;
+        }
+        setTimeout(updateText, 1000 / frameRate);
+      }
+      setTimeout(updateText, 500); 
+    }
+    if (heroTitle) {
+        cyberDecodeAnimation(heroTitle);
+    }
+    
+    // --- サイト基本機能 ---
     const siteLogo = document.querySelector('.site-logo');
     const sideNav = document.getElementById('side-nav');
     const heroSection = document.getElementById('hero');
     const sections = document.querySelectorAll('.content-section');
     const navLinks = document.querySelectorAll('.side-nav li');
-    const chatLauncher = document.querySelector('.chat-launcher');
+    
+    const chatLauncherInput = document.querySelector('.chat-launcher-input');
+    const vrmPreviewArea = document.querySelector('.vrm-preview-area');
+
+    // ロゴ、サイドナビ、チャットUIの表示切り替え
+    window.addEventListener('scroll', () => {
+      const showPosition = heroSection.offsetHeight - 100;
+      const isVisible = window.scrollY > showPosition;
+      siteLogo.classList.toggle('visible', isVisible);
+      sideNav.classList.toggle('visible', isVisible);
+      chatLauncherInput.classList.toggle('visible', isVisible);
+      vrmPreviewArea.classList.toggle('visible', isVisible);
+    });
+    
+    // スクロールアニメーション用の監視ロジック
+    const animationObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    const contentSections = document.querySelectorAll('.content-section');
+    contentSections.forEach(section => {
+      const elementsToAnimate = section.querySelectorAll('h2, .description-box, .main-text, .form-container');
+      elementsToAnimate.forEach((el, index) => {
+        el.classList.add('animate-on-scroll');
+        el.style.transitionDelay = `${index * 150}ms`;
+        animationObserver.observe(el);
+      });
+    });
+
+    // サイドナビ用の監視ロジック
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.dataset.section === sectionId) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { 
+      rootMargin: '0px 0px -50% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(section => {
+      navObserver.observe(section);
+    });
+
+    // --- チャット関連のロジック ---
     const vrmChatContainer = document.querySelector('.vrm-chat-container');
     const closeChatButton = document.querySelector('.close-chat-button');
     const chatForm = document.getElementById('chat-form');
     const chatInput = document.getElementById('chat-input');
     const chatLog = document.querySelector('.chat-log');
     const modeBtn = document.getElementById('modeBtn');
+    
+    const starterForm = document.getElementById('starter-form');
+    const starterInput = document.getElementById('starter-input');
 
     let vrmScriptLoaded = false; 
     let isFirstOpening = true;
     let isConsultationMode = false;
     let conversationHistory = [];
 
-    window.addEventListener('scroll', () => {
-      const showPosition = heroSection.offsetHeight - 100;
-      const isVisible = window.scrollY > showPosition;
-      siteLogo.classList.toggle('visible', isVisible);
-      sideNav.classList.toggle('visible', isVisible);
-      chatLauncher.classList.toggle('visible', isVisible);
-    });
-    
-    chatLauncher.addEventListener('click', () => {
-        vrmChatContainer.classList.add('visible');
-        chatLauncher.style.display = 'none';
-        
-        if (!vrmScriptLoaded) {
-          const script = document.createElement('script');
-          script.type = 'module';
-          script.src = './vrm-viewer.js';
-          document.body.appendChild(script);
-          vrmScriptLoaded = true;
-        }
+    // スターターフォームの送信イベント
+    starterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const starterMessage = starterInput.value.trim();
+      if (!starterMessage) return;
 
-        if (isFirstOpening) {
-            const welcomeMessage = 'はじめまして！株式会社AIMAの相馬アイと申します。ご用件をお聞かせください！';
-            addMessage(welcomeMessage, 'character');
-            isFirstOpening = false;
-        }
+      vrmChatContainer.classList.add('visible');
+      
+      chatLauncherInput.style.display = 'none';
+      vrmPreviewArea.style.display = 'none';
+
+      chatInput.value = starterMessage;
+      starterInput.value = '';
+      
+      setTimeout(() => {
+        chatForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      }, 0);
+
+      if (!vrmScriptLoaded) {
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = './vrm-viewer.js';
+        document.body.appendChild(script);
+        vrmScriptLoaded = true;
+      }
+      
+      if (isFirstOpening) {
+          addMessage('はじめまして！株式会社AIMAの相馬アイです。ご用件をお聞かせください！', 'character');
+          isFirstOpening = false;
+      }
     });
 
+    // 閉じるボタンのイベント
     closeChatButton.addEventListener('click', () => {
         vrmChatContainer.classList.remove('visible');
-        chatLauncher.style.display = 'flex';
+        chatLauncherInput.style.display = 'block';
+        vrmPreviewArea.style.display = 'block';
     });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(link => {
-            link.classList.toggle('active', link.dataset.section === entry.target.id);
-          });
-        }
-      });
-    }, { rootMargin: '0px', threshold: 0.4 });
-
-    sections.forEach(section => observer.observe(section));
     
     modeBtn.addEventListener('click', () => {
         isConsultationMode = !isConsultationMode;
