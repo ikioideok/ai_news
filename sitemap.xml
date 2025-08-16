@@ -4,13 +4,37 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
+  <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
-<url>
-  <loc>https://ai-and-marketing.jp/</loc>
-  <lastmod>2025-08-03T15:06:21+00:00</lastmod>
-</url>
+  <url>
+    <loc>https://ai-and-marketing.jp/</loc>
+    <lastmod>2025-08-03T15:06:21+00:00</lastmod>
+  </url>
 
+  <url>
+    <loc>https://ai-and-marketing.jp/soku_siryo/</loc>
+    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ai-and-marketing.jp/soku_siryo/privacy.html</loc>
+    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ai-and-marketing.jp/soku_siryo/terms.html</loc>
+    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ai-and-marketing.jp/soku_siryo/thankyou.html</loc>
+    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ai-and-marketing.jp/soku_siryo/tokushoho.html</loc>
+    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
+  </url>
 
 </urlset>
