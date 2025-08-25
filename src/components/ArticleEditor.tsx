@@ -26,7 +26,8 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Alert, AlertDescription } from "./ui/alert";
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 
 interface Article {
   id?: string;
@@ -165,7 +166,7 @@ export default function ArticleEditor({
     try {
       setLoading(true);
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/admin/articles/${articleId}`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/admin/articles/${articleId}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -216,8 +217,8 @@ export default function ArticleEditor({
       };
 
       const url = articleId 
-        ? `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/admin/articles/${articleId}`
-        : `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/admin/articles`;
+        ? `${supabaseUrl}/functions/v1/make-server-c8cbcb38/admin/articles/${articleId}`
+        : `${supabaseUrl}/functions/v1/make-server-c8cbcb38/admin/articles`;
 
       const method = articleId ? 'PUT' : 'POST';
 

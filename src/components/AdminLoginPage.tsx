@@ -4,7 +4,9 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Alert, AlertDescription } from "./ui/alert";
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const publicAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface AdminLoginPageProps {
   onLogin: (token: string) => void;
@@ -28,7 +30,7 @@ export default function AdminLoginPage({ onLogin }: AdminLoginPageProps) {
 
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/admin/login`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/admin/login`,
         {
           method: 'POST',
           headers: {
