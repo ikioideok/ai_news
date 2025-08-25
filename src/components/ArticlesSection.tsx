@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import ArticleCard from "./ArticleCard";
-import { projectId, publicAnonKey } from '../utils/supabase/info';
 import { useRouter } from "../hooks/useRouter";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const publicAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface Article {
   id: string;
@@ -72,7 +74,7 @@ export default function ArticlesSection({
   const initializeData = async () => {
     try {
       await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/init`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/init`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
@@ -100,7 +102,7 @@ export default function ArticlesSection({
       if (tagFilter) params.append('tag', tagFilter);
 
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/articles?${params}`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/articles?${params}`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,

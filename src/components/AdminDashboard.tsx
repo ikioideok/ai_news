@@ -27,7 +27,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Alert, AlertDescription } from "./ui/alert";
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 
 interface Article {
   id: string;
@@ -92,7 +93,7 @@ export default function AdminDashboard({
       });
 
       const articlesResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/admin/articles?${params}`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/admin/articles?${params}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -111,7 +112,7 @@ export default function AdminDashboard({
 
       // Fetch metadata
       const metadataResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/admin/metadata`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/admin/metadata`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -140,7 +141,7 @@ export default function AdminDashboard({
 
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/admin/articles/${id}`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/admin/articles/${id}`,
         {
           method: 'DELETE',
           headers: {

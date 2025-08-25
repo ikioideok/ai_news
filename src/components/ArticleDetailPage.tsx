@@ -6,7 +6,9 @@ import { Card } from "./ui/card";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import SEOHead from "./SEOHead";
 import { useRouter } from "../hooks/useRouter";
-import { projectId, publicAnonKey } from '../utils/supabase/info';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const publicAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface Article {
   id: string;
@@ -51,7 +53,7 @@ export default function ArticleDetailPage({ slug }: ArticleDetailPageProps) {
 
       // Fetch article
       const articleResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/articles/${slug}`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/articles/${slug}`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
@@ -72,7 +74,7 @@ export default function ArticleDetailPage({ slug }: ArticleDetailPageProps) {
 
       // Fetch related articles
       const relatedResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/articles/${slug}/related`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/articles/${slug}/related`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,

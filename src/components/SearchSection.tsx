@@ -10,8 +10,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { projectId, publicAnonKey } from '../utils/supabase/info';
 import { useRouter } from '../hooks/useRouter';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const publicAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface SearchSectionProps {
   onSearch: (query: string) => void;
@@ -66,7 +68,7 @@ export default function SearchSection({
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/categories`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/categories`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
@@ -87,7 +89,7 @@ export default function SearchSection({
   const fetchTags = async () => {
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/tags`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/tags`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
@@ -115,7 +117,7 @@ export default function SearchSection({
     setLoading(true);
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-c8cbcb38/search?q=${encodeURIComponent(query)}`,
+        `${supabaseUrl}/functions/v1/make-server-c8cbcb38/search?q=${encodeURIComponent(query)}`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
