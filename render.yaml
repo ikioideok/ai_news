@@ -1,6 +1,6 @@
 services:
-  - type: static
+  - type: web
     name: ai-marketing-news-media
-    env: static
+    runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: build
