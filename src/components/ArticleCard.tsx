@@ -1,124 +1,98 @@
-import { Card } from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { Calendar, Clock, User, Eye } from "lucide-react";
+import { Clock, User, TrendingUp } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 interface ArticleCardProps {
-  id?: string | number;
   title: string;
   excerpt: string;
-  category: string;
-  date: string;
-  readTime: string;
   author: string;
+  readTime: string;
+  category: string;
   imageUrl: string;
-  featured?: boolean;
-  views?: number;
-  tags?: string[];
+  isFeature?: boolean;
+  trend?: boolean;
 }
 
-export default function ArticleCard({
-  id,
+export function ArticleCard({
   title,
   excerpt,
-  category,
-  date,
-  readTime,
   author,
+  readTime,
+  category,
   imageUrl,
-  featured = false,
-  views,
-  tags = []
+  isFeature = false,
+  trend = false
 }: ArticleCardProps) {
   return (
-    <Card className={`overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 group ${
-      featured ? 'ring-2 ring-[var(--brand-red)]/20' : ''
+    <Card className={`group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-0 bg-gradient-to-br from-background to-muted/20 ${
+      isFeature ? 'lg:col-span-2' : ''
     }`}>
-      <div className="relative">
-        <ImageWithFallback
-          src={imageUrl}
-          alt={title}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-        <div className="absolute top-4 left-4">
-          <Badge 
-            className={`${
-              featured 
-                ? 'bg-[var(--brand-red)] text-white' 
-                : 'bg-white/90 text-gray-900'
-            }`}
-          >
-            {category}
-          </Badge>
-        </div>
-        {featured && (
-          <div className="absolute top-4 right-4">
-            <Badge className="bg-yellow-500 text-white">注目</Badge>
-          </div>
-        )}
-      </div>
-      
-      <div className="p-6 space-y-4">
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1">
-            <Calendar className="h-4 w-4" />
-            {date}
-          </div>
-          <div className="flex items-center gap-1">
-            <Clock className="h-4 w-4" />
-            {readTime}
-          </div>
-          {views !== undefined && (
-            <div className="flex items-center gap-1">
-              <Eye className="h-4 w-4" />
-              {views.toLocaleString()}
-            </div>
-          )}
-        </div>
-        
-        <h3 className="text-lg font-bold leading-tight group-hover:text-[var(--brand-red)] transition-colors line-clamp-2">
-          {title}
-        </h3>
-        
-        <p className="text-sm text-muted-foreground line-clamp-3">
-          {excerpt}
-        </p>
+      <CardContent className="p-0">
+        <div className={`${isFeature ? 'lg:flex' : ''} h-full`}>
+          <div className={`relative overflow-hidden ${
+            isFeature ? 'lg:w-1/2' : 'aspect-video'
+          }`}>
+            <ImageWithFallback
+              src={imageUrl}
+              alt={title}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            
+            {/* Category badge */}
+            <Badge 
+              variant="secondary" 
+              className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm border-0"
+            >
+              {category}
+            </Badge>
 
-        {/* Tags */}
-        {tags.length > 0 && (
-          <div className="flex flex-wrap gap-1">
-            {tags.slice(0, 3).map((tag) => (
-              <Badge
-                key={tag}
-                variant="outline"
-                className="text-xs border-gray-300 text-gray-600 hover:border-[var(--brand-red)] hover:text-[var(--brand-red)] cursor-pointer"
-              >
-                #{tag}
-              </Badge>
-            ))}
-            {tags.length > 3 && (
-              <Badge variant="outline" className="text-xs border-gray-300 text-gray-600">
-                +{tags.length - 3}
-              </Badge>
+            {/* Trending indicator */}
+            {trend && (
+              <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                <TrendingUp className="h-3 w-3" />
+                トレンド
+              </div>
             )}
           </div>
-        )}
-        
-        <div className="flex items-center justify-between pt-2">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <User className="h-4 w-4" />
-            {author}
+
+          <div className={`p-6 flex flex-col justify-between ${
+            isFeature ? 'lg:w-1/2' : ''
+          }`}>
+            <div className="space-y-3">
+              <h3 className={`font-bold line-clamp-2 group-hover:text-blue-600 transition-colors ${
+                isFeature ? 'text-2xl' : 'text-lg'
+              }`}>
+                {title}
+              </h3>
+              
+              <p className={`text-muted-foreground line-clamp-3 ${
+                isFeature ? 'text-base' : 'text-sm'
+              }`}>
+                {excerpt}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between mt-4 pt-4 border-t border-border/50">
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <User className="h-4 w-4" />
+                  <span>{author}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Clock className="h-4 w-4" />
+                  <span>{readTime}</span>
+                </div>
+              </div>
+              
+              <div className="text-sm text-blue-600 font-medium group-hover:underline">
+                続きを読む →
+              </div>
+            </div>
           </div>
-          
-          <Button 
-            variant="link" 
-            className="p-0 h-auto text-[var(--brand-red)] hover:text-[var(--brand-red-hover)] text-sm"
-          >
-            続きを読む →
-          </Button>
         </div>
-      </div>
+      </CardContent>
     </Card>
   );
 }
