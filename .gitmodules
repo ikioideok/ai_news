@@ -1,3 +1,4 @@
 [submodule "media"]
 	path = media
 	url = https://github.com/ikioideok/ai-marketing-news.git
+	branch = main
