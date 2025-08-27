@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ai-and-marketing.jp/sitemap.xml
+
