@@ -4,3 +4,4 @@ credentials.json
 *.save
 .DS_Store
 **/.DS_Store
+dist/

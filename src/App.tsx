@@ -12,7 +12,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white relative overflow-x-hidden">
       {/* Global Performance Optimizations */}
-      <style jsx global>{`
+      <style>{`
         * {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;

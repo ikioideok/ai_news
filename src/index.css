@@ -1,3 +1,6 @@
+/* Project fonts should be imported first */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap");
+
 /* Tailwind import (v4) */
 @import "tailwindcss";
 
@@ -8,6 +11,3 @@
   }
   /* 以降、既存のリセットやベーススタイル */
 }
-
-/* Project fonts and any additional styles */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap");
