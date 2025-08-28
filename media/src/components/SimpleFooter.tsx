@@ -17,7 +17,7 @@ export function SimpleFooter() {
                 <h3 className="font-bold title-font">
                   <span className="text-red-accent">AI</span> Marketing News
                 </h3>
-                <div className="text-xs text-muted-foreground">人工知能情報メディア</div>
+                <div className="text-xs text-muted-foreground">AIマーケティング専門メディア</div>
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -44,12 +44,9 @@ export function SimpleFooter() {
             <h4 className="font-medium">コンテンツ</h4>
             <nav className="space-y-2">
               {              [
-                "戦略コラム",
-                "ノウハウ・TIPS",
-                "ツールレビュー",
-                "業界ニュース",
-                "イベント・セミナー",
-                "用語集"
+                "最新記事",
+                "注目記事",
+                "特集記事"
               ].map((item) => (
                 <a 
                   key={item}
