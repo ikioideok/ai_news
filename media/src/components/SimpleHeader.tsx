@@ -25,7 +25,7 @@ export function SimpleHeader() {
             <h1 className="text-lg font-bold text-foreground title-font">
               <span className="text-red-accent">AI</span> Marketing News
             </h1>
-            <div className="text-xs text-muted-foreground">人工知能情報メディア</div>
+            <div className="text-xs text-muted-foreground">AIマーケティング専門メディア</div>
           </div>
         </div>
 

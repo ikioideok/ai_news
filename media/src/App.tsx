@@ -25,8 +25,7 @@ export default function App() {
               <span className="text-red-accent">AI</span> Marketing News
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              人工知能の最新技術動向、研究成果、ビジネス応用まで、
-              AI分野の信頼できる情報をわかりやすくお届けします
+              AIで、マーケティングを進化させる。実務に役立つニュースと成功事例を、どこよりも分かりやすく解説します。
             </p>
           </div>
         </section>

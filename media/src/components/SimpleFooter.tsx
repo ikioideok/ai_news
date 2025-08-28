@@ -15,14 +15,13 @@ export function SimpleFooter() {
               </div>
               <div>
                 <h3 className="font-bold title-font">
-                  <span className="text-red-accent">AI</span> Media Hub
+                  <span className="text-red-accent">AI</span> Marketing News
                 </h3>
                 <div className="text-xs text-muted-foreground">人工知能情報メディア</div>
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              人工知能の最新技術動向、研究成果、ビジネス応用まで、
-              AI分野の信頼できる情報をお届けします。
+              AIで、マーケティングを進化させる。実務に役立つニュースと成功事例を、どこよりも分かりやすく解説します。
             </p>
             <div className="flex gap-2">
               <Button variant="outline" size="sm">
@@ -44,13 +43,13 @@ export function SimpleFooter() {
           <div className="space-y-4">
             <h4 className="font-medium">コンテンツ</h4>
             <nav className="space-y-2">
-              {[
-                "最新記事",
-                "AI技術解説", 
-                "研究論文解説",
-                "ビジネス事例",
-                "ツール紹介",
-                "インタビュー"
+              {              [
+                "戦略コラム",
+                "ノウハウ・TIPS",
+                "ツールレビュー",
+                "業界ニュース",
+                "イベント・セミナー",
+                "用語集"
               ].map((item) => (
                 <a 
                   key={item}
@@ -67,13 +66,12 @@ export function SimpleFooter() {
           <div className="space-y-4">
             <h4 className="font-medium">カテゴリー</h4>
             <nav className="space-y-2">
-              {[
-                "機械学習",
-                "深層学習",
-                "自然言語処理",
-                "コンピュータビジョン",
-                "データサイエンス",
-                "AI倫理"
+              {              [
+                "AIマーケティング戦略",
+                "コンテンツ・SEO",
+                "広告・プロモーション",
+                "データ分析・顧客理解",
+                "最新AIツール・成功事例"
               ].map((item) => (
                 <a 
                   key={item}
