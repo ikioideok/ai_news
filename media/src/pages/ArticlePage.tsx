@@ -22,7 +22,7 @@ const ArticlePage = () => {
       '@type': 'NewsArticle',
       'headline': article.title,
       'image': [article.imageUrl],
-      'datePublished': new Date(article.publishDate).toISOString(),
+      'datePublished': new Date(article.publishDate.replace('年', '-').replace('月', '-').replace('日', '')).toISOString(),
       'author': [{
         '@type': 'Person',
         'name': article.author
