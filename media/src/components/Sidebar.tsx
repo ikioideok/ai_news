@@ -30,13 +30,11 @@ export function Sidebar() {
   ];
 
   const categories = [
-    { name: "機械学習", count: 45 },
-    { name: "深層学習", count: 32 },
-    { name: "自然言語処理", count: 28 },
-    { name: "コンピュータビジョン", count: 24 },
-    { name: "データサイエンス", count: 38 },
-    { name: "AI倫理", count: 15 },
-    { name: "ビジネスAI", count: 22 }
+    { name: "AIマーケティング戦略", count: 12 },
+    { name: "コンテンツ・SEO", count: 28 },
+    { name: "広告・プロモーション", count: 18 },
+    { name: "データ分析・顧客理解", count: 25 },
+    { name: "最新AIツール・成功事例", count: 35 }
   ];
 
   return (
@@ -151,9 +149,10 @@ export function Sidebar() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {[
-              "Python", "TensorFlow", "PyTorch", "OpenAI", "Hugging Face",
-              "Transformer", "CNN", "RNN", "GAN", "BERT", "GPT", "DALL-E"
+            {            [
+              "業務効率化", "マーケティングオートメーション", "SEO最適化", "記事自動生成",
+              "SNS活用", "広告クリエイティブ", "顧客分析", "需要予測",
+              "プロンプト", "ChatGPT", "Gemini", "Midjourney"
             ].map((tag, index) => (
               <Badge 
                 key={index}

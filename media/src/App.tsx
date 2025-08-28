@@ -22,7 +22,7 @@ export default function App() {
         <section className="mb-12">
           <div className="text-center space-y-4 mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground title-font">
-              <span className="text-red-accent">AI</span> Media Hub
+              <span className="text-red-accent">AI</span> Marketing News
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               人工知能の最新技術動向、研究成果、ビジネス応用まで、
@@ -57,7 +57,7 @@ export default function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {specialArticles.map((article) => (
                   <Link to={`/articles/${article.slug}`} key={article.slug}>
-                    <SimpleCard {...article} />
+                    <SimpleCard {...article} title={`【ダミー】${article.title}`} />
                   </Link>
                 ))}
               </div>
@@ -78,7 +78,7 @@ export default function App() {
               <div className="space-y-4">
                 {recentArticles.map((article) => (
                   <Link to={`/articles/${article.slug}`} key={article.slug}>
-                    <CompactCard {...article} />
+                    <CompactCard {...article} title={`【ダミー】${article.title}`} />
                   </Link>
                 ))}
               </div>

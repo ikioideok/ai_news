@@ -5,9 +5,10 @@ import { Search, Menu } from "lucide-react";
 export function SimpleHeader() {
   const navItems = [
     { name: "ホーム", href: "#" },
-    { name: "AI技術", href: "#" },
-    { name: "機械学習", href: "#" },
-    { name: "研究", href: "#" },
+    { name: "戦略", href: "#" },
+    { name: "事例", href: "#" },
+    { name: "分析", href: "#" },
+    { name: "ツール", href: "#" },
     { name: "ニュース", href: "#" },
     { name: "About", href: "#" }
   ];
@@ -22,7 +23,7 @@ export function SimpleHeader() {
           </div>
           <div>
             <h1 className="text-lg font-bold text-foreground title-font">
-              <span className="text-red-accent">AI</span> Media Hub
+              <span className="text-red-accent">AI</span> Marketing News
             </h1>
             <div className="text-xs text-muted-foreground">人工知能情報メディア</div>
           </div>
