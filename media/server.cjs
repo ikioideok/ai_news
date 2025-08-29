@@ -78,28 +78,38 @@ if (!DATABASE_URL) {
   process.exit(1);
 }
 
-// SSL config via env: SSL_MODE and optional SSL_CA_PATH
+// SSL config via env: SSL_MODE and optional SSL_CA/SSL_CA_PATH
 const mode = process.env.SSL_MODE || 'strict';
-const caPath = process.env.SSL_CA_PATH;
+const caInline = process.env.SSL_CA; // PEM string
+const caPath = process.env.SSL_CA_PATH; // file path
 let ssl = undefined;
+let caSource = 'none';
 if (mode === 'no-verify') {
   // Explicitly disable certificate verification
   ssl = { rejectUnauthorized: false };
-} else if (caPath) {
-  // Use provided CA bundle
+  caSource = 'none';
+} else if (caInline && caInline.trim()) {
+  // Inline PEM takes precedence
+  ssl = { ca: caInline };
+  caSource = 'inline';
+} else if (caPath && caPath.trim()) {
+  // Use provided CA bundle path
   try {
     const ca = fs.readFileSync(caPath, 'utf8');
     ssl = { ca };
+    caSource = 'path';
   } catch (e) {
     console.warn('WARN: Failed to read SSL_CA_PATH:', e.message);
     // Fallback to default CA store
     ssl = true;
+    caSource = 'none';
   }
 } else {
   // Default: use system CA store (do not pass empty object)
   ssl = true;
+  caSource = 'none';
 }
-console.log('SSL mode:', mode, 'ca:', !!caPath);
+console.log('SSL mode:', mode, 'caSource:', caSource);
 
 const pool = new Pool({
   connectionString: DATABASE_URL,
