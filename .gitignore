@@ -1,0 +1,13 @@
+node_modules/
+credentials.json
+.env
+*.save
+.DS_Store
+**/.DS_Store
+dist/
+
+build/
+
+media/.env
+media/certs/*.pem
+media/server.log

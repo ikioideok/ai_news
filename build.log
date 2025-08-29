@@ -1,0 +1,25 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+vite v5.4.19 building for production...
+transforming...
+✓ 2010 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.44 kB │ gzip:   0.34 kB
+dist/assets/index-B31TM-TG.css  119.48 kB │ gzip:  16.99 kB
+dist/assets/index-Da5iV7ON.js   337.68 kB │ gzip: 108.57 kB
+✓ built in 1.48s
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+WebSocket server error:
+Error: listen EPERM: operation not permitted 0.0.0.0:24678
+    at Server.setupListenHandle [as _listen2] (node:net:1917:21)
+    at listenInCluster (node:net:1996:12)
+    at Server.listen (node:net:2101:7)
+    at Object.listen (file:///Users/mizumayuuki/aima/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:59515:21)
+    at file:///Users/mizumayuuki/aima/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:64085:45
+    at Array.forEach (<anonymous>)
+    at Object.listen (file:///Users/mizumayuuki/aima/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:64085:16)
+    at _createServer (file:///Users/mizumayuuki/aima/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:63407:11)
+    at async file:///Users/mizumayuuki/aima/scripts/prerender.mjs:9:14
+✘ [ERROR] The build was canceled
+
+Prerendered: [ '/', '/about', '/service', '/contact' ]

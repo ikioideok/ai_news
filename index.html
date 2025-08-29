@@ -1,13 +1,47 @@
 
   <!DOCTYPE html>
-  <html lang="en">
+  <html lang="ja">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>AIニュースメディアサイト</title>
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      <title>株式会社AIMA｜AIマーケティング支援・コンサルティング</title>
+
+      <!-- SEO: per request -->
+      <meta name="description" content="AIMAはAI×マーケで成果に直結。生成AI導入、SEO・コンテンツ制作、広告運用、業務自動化を大阪拠点で支援します。">
+      <link rel="canonical" href="https://ai-and-marketing.jp/">
+
+      <!-- OG / Twitter -->
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="株式会社AIMA｜AIマーケティング支援・コンサルティング">
+      <meta property="og:description" content="生成AI導入・SEO/広告運用・業務自動化まで成果直結で支援。">
+      <meta property="og:url" content="https://ai-and-marketing.jp/">
+      <meta property="og:image" content="https://ai-and-marketing.jp/ogp.png">
+      <meta property="og:site_name" content="AIMA">
+      <meta property="og:locale" content="ja_JP">
+      <meta name="twitter:card" content="summary_large_image">
+      <!-- 任意: 会社のX(旧Twitter)アカがあれば -->
+      <!-- <meta name="twitter:site" content="@your_account"> -->
+
+      <!-- Organization JSON-LD -->
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "株式会社AIMA",
+        "url": "https://ai-and-marketing.jp/",
+        "logo": "https://ai-and-marketing.jp/logo.png",
+        "sameAs": []
+      }
+      </script>
     </head>
 
     <body>
+      <!-- 視覚非表示のH1（UIは変えない） -->
+      <h1 class="sr-only">AIMA｜AIマーケティング支援・コンサルティング</h1>
+      <style>
+        .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+      </style>
       <div id="root"></div>
       <script type="module" src="/src/main.tsx"></script>
     </body>
