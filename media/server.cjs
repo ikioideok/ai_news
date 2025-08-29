@@ -145,7 +145,7 @@ async function start() {
       return res.json(rows);
     } catch (err) {
       console.error('GET /api/articles failed:', err.message);
-      return res.status(500).json({ error: 'internal_error' });
+      return res.status(500).json({ error: err.message });
     }
   });
   console.log('REGISTERED: GET /api/articles');
