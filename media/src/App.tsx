@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { SimpleHeader } from "./components/SimpleHeader";
 import { SimpleCard } from "./components/SimpleCard";
 import { CompactCard } from "./components/CompactCard";
@@ -10,9 +11,17 @@ import { ArrowRight, TrendingUp, Star, Zap } from "lucide-react";
 
 import featuredArticle from "./data/featuredArticle.json";
 import specialArticles from "./data/specialArticles.json";
-import recentArticles from "./data/recentArticles.json";
 
 export default function App() {
+  const [recentArticles, setRecentArticles] = useState([]);
+
+  useEffect(() => {
+    // Use relative path to avoid hardcoding environment-specific base URLs
+    fetch('/api/articles?limit=5')
+      .then(response => response.json())
+      .then(data => setRecentArticles(data))
+      .catch(error => console.error('Error fetching recent articles:', error));
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <SimpleHeader />

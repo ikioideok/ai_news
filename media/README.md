@@ -8,4 +8,13 @@
   Run `npm i` to install the dependencies.
 
   Run `npm run dev` to start the development server.
+
+  ## TLS for DB (Supabase Pooler)
+  - In Supabase: Settings → Database → Download certificate.
+  - Save it to `certs/pooler-ca.pem` in this repo.
+  - Start securely with CA: `npm run start:with-ca`.
+
+  ## Server start modes
+  - `npm run start:secure`: strict TLS verification (default trust store).
+  - `npm run start:noverify`: TLS without verification (local debug only).
   
