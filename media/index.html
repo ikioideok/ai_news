@@ -65,7 +65,7 @@
             for (const article of items) {
               const id = article.id ?? article._id ?? article.slug ?? '';
               const title = article.title ?? '無題';
-              const created = article.createdAt ?? article.publishedAt ?? article.date ?? '';
+              const created = article.createdAt ?? article.created_at ?? article.publishedAt ?? article.date ?? '';
               const body = article.content ?? article.body ?? article.description ?? '';
 
               const li = document.createElement('li');
