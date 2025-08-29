@@ -23,6 +23,8 @@ try {
 }
 
 const app = express();
+// Trust the first proxy (for Render/Express rate limit correctness)
+app.set('trust proxy', 1);
 // Global request logger for debugging
 app.use((req, _res, next) => { try { console.log('REQ', req.method, req.originalUrl); } catch (_) {} next(); });
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001;
@@ -69,7 +71,7 @@ app.get('/__routes', (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/healthz', (_, res) => res.json({ ok: true }));
 
-// Configure Postgres pool (disable strict SSL verification for now)
+// Configure Postgres pool (TLS for Render)
 const DATABASE_URL = process.env.DATABASE_URL;
 if (!DATABASE_URL) {
   console.error('ERROR: DATABASE_URL is not set');
@@ -78,20 +80,26 @@ if (!DATABASE_URL) {
 
 // SSL config via env: SSL_MODE and optional SSL_CA_PATH
 const mode = process.env.SSL_MODE || 'strict';
+const caPath = process.env.SSL_CA_PATH;
 let ssl = undefined;
 if (mode === 'no-verify') {
+  // Explicitly disable certificate verification
   ssl = { rejectUnauthorized: false };
-} else {
-  let ca = undefined;
-  if (process.env.SSL_CA_PATH) {
-    try {
-      ca = fs.readFileSync(process.env.SSL_CA_PATH, 'utf8');
-    } catch (e) {
-      console.warn('WARN: Failed to read SSL_CA_PATH:', e.message);
-    }
+} else if (caPath) {
+  // Use provided CA bundle
+  try {
+    const ca = fs.readFileSync(caPath, 'utf8');
+    ssl = { ca };
+  } catch (e) {
+    console.warn('WARN: Failed to read SSL_CA_PATH:', e.message);
+    // Fallback to default CA store
+    ssl = true;
   }
-  ssl = ca ? { require: true, rejectUnauthorized: true, ca } : { require: true, rejectUnauthorized: true };
+} else {
+  // Default: use system CA store (do not pass empty object)
+  ssl = true;
 }
+console.log('SSL mode:', mode, 'ca:', !!caPath);
 
 const pool = new Pool({
   connectionString: DATABASE_URL,
