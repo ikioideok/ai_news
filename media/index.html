@@ -15,99 +15,26 @@
   </head>
   <body>
     <div id="root"></div>
-    <section id="latest-articles" style="max-width: 840px; margin: 40px auto; padding: 0 16px;">
-      <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 16px;">最新記事</h2>
-      <div id="articles-message" style="color:#555; font-size: 0.95rem;">読み込み中…</div>
-      <ul id="articles-list" style="list-style: none; padding: 0; margin: 0;"></ul>
-    </section>
-    <script type="module" src="/src/main.tsx"></script>
+    <section id="cms-latest"><h2>最新記事</h2><ul id="cms-list"></ul></section>
     <script>
-      (function () {
-        const API_URL = 'https://ai-news-cms.onrender.com/api/articles?limit=10';
-        const listEl = document.getElementById('articles-list');
-        const msgEl = document.getElementById('articles-message');
-
-        function formatJST(dateStr) {
-          try {
-            const d = new Date(dateStr);
-            if (isNaN(d.getTime())) return '';
-            return d.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' });
-          } catch (_) {
-            return '';
-          }
+    (async () => {
+      const ul = document.getElementById('cms-list');
+      try {
+        const r = await fetch('./api/articles?limit=10'); // ← /media/api/... へ → CMSにRewrite
+        const rows = await r.json();
+        if (!Array.isArray(rows) || rows.length === 0) {
+          ul.innerHTML = '<li>まだ記事がありません。</li>'; return;
         }
-
-        function toText(html) {
-          if (!html) return '';
-          return String(html).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-        }
-
-        function excerpt(text, max = 120) {
-          if (!text) return '';
-          const t = text.slice(0, max);
-          return t + (text.length > max ? '…' : '');
-        }
-
-        async function load() {
-          try {
-            const res = await fetch(API_URL, { headers: { 'accept': 'application/json' } });
-            if (!res.ok) throw new Error('Bad response');
-            const data = await res.json();
-            const items = Array.isArray(data) ? data : (Array.isArray(data?.articles) ? data.articles : []);
-
-            if (!items.length) {
-              msgEl.textContent = '記事がありません';
-              return;
-            }
-
-            msgEl.style.display = 'none';
-
-            for (const article of items) {
-              const id = article.id ?? article._id ?? article.slug ?? '';
-              const title = article.title ?? '無題';
-              const created = article.createdAt ?? article.created_at ?? article.publishedAt ?? article.date ?? '';
-              const body = article.content ?? article.body ?? article.description ?? '';
-
-              const li = document.createElement('li');
-              li.style.padding = '16px 0';
-              li.style.borderBottom = '1px solid #eee';
-
-              const a = document.createElement('a');
-              a.href = `https://ai-news-cms.onrender.com/article.html?id=${encodeURIComponent(id)}`;
-              a.textContent = title;
-              a.style.fontWeight = '600';
-              a.style.fontSize = '1.05rem';
-              a.style.color = '#1a1a1a';
-              a.style.textDecoration = 'none';
-              a.onmouseenter = () => (a.style.textDecoration = 'underline');
-              a.onmouseleave = () => (a.style.textDecoration = 'none');
-
-              const meta = document.createElement('div');
-              meta.textContent = formatJST(created);
-              meta.style.color = '#666';
-              meta.style.fontSize = '0.85rem';
-              meta.style.margin = '6px 0 6px';
-
-              const p = document.createElement('p');
-              p.textContent = excerpt(toText(body), 120);
-              p.style.margin = '0';
-              p.style.color = '#333';
-              p.style.lineHeight = '1.7';
-
-              li.appendChild(a);
-              li.appendChild(meta);
-              li.appendChild(p);
-              listEl.appendChild(li);
-            }
-          } catch (e) {
-            console.error(e);
-            msgEl.textContent = '記事の取得に失敗しました';
-          }
-        }
-
-        // Kick off
-        load();
-      })();
+        const fmt = new Intl.DateTimeFormat('ja-JP', { dateStyle:'medium', timeStyle:'short' });
+        ul.innerHTML = rows.map(a => `
+          <li>
+            <a href="./article.html?id=${encodeURIComponent(a.id)}">${a.title}</a>
+            <small>${a.created_at ? fmt.format(new Date(a.created_at)) : ''}</small>
+          </li>`).join('');
+      } catch(e) {
+        ul.innerHTML = '<li style="color:red">記事の取得に失敗しました</li>';
+      }
+    })();
     </script>
   </body>
 </html>
