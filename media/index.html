@@ -20,7 +20,7 @@
     (async () => {
       const ul = document.getElementById('cms-list');
       try {
-        const r = await fetch('./api/articles?limit=10'); // ← /media/api/... へ → CMSにRewrite
+        const r = await fetch('./api/articles?limit=10'); // /media/api → CMSへRewrite済み
         const rows = await r.json();
         if (!Array.isArray(rows) || rows.length === 0) {
           ul.innerHTML = '<li>まだ記事がありません。</li>'; return;
