@@ -1,6 +1,7 @@
 require('dotenv').config(); // .env を読む
 console.log('BOOT FILE:', __filename);
 const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
 const { Pool } = require('pg');
 const path = require('path');
@@ -284,3 +285,12 @@ async function start() {
 }
 
 start();
+// Proxy CMS UI/API under /cms -> https://ai-news-cms.onrender.com
+app.use(
+  '/cms',
+  createProxyMiddleware({
+    target: 'https://ai-news-cms.onrender.com',
+    changeOrigin: true,
+    pathRewrite: { '^/cms': '/' },
+  })
+);

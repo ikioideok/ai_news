@@ -78,3 +78,4 @@
   "type": "module",
   "engines": { "node": ">=18" }
 }
+    "http-proxy-middleware": "^3.0.0",
