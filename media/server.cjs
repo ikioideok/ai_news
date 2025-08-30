@@ -51,6 +51,16 @@ app.use(
 console.log('CORS allowed origins:', allowed);
 app.use(express.json());
 
+// Proxy CMS UI/API under /cms -> https://ai-news-cms.onrender.com
+app.use(
+  '/cms',
+  createProxyMiddleware({
+    target: 'https://ai-news-cms.onrender.com',
+    changeOrigin: true,
+    pathRewrite: { '^/cms': '/' },
+  })
+);
+
 // Early debug endpoints before static
 app.get('/ping', (req, res) => res.json({ ok: true, at: Date.now() }));
 app.get('/__routes', (req, res) => {
@@ -285,12 +295,3 @@ async function start() {
 }
 
 start();
-// Proxy CMS UI/API under /cms -> https://ai-news-cms.onrender.com
-app.use(
-  '/cms',
-  createProxyMiddleware({
-    target: 'https://ai-news-cms.onrender.com',
-    changeOrigin: true,
-    pathRewrite: { '^/cms': '/' },
-  })
-);
